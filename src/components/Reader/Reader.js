@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import queryString from 'query-string';
+import PropTypes from 'prop-types';
 import styles from './Reader.module.css';
 import Controls from '../Controls/Controls';
 import Counter from '../Counter/Counter';
@@ -42,9 +42,7 @@ export default class Reader extends Component {
     const query = Number(queryString.parse(location.search).item);
 
     if (query !== counter) {
-      this.setState({
-        counter: query,
-      });
+      this.stateUpdate(query);
     }
   }
 
@@ -63,6 +61,12 @@ export default class Reader extends Component {
         });
       },
     );
+  };
+
+  stateUpdate = query => {
+    this.setState({
+      counter: query,
+    });
   };
 
   reduceCounter = () => {
@@ -101,3 +105,9 @@ export default class Reader extends Component {
     );
   }
 }
+
+Reader.propTypes = {
+  counter: PropTypes.number,
+  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+  location: PropTypes.shape({ search: PropTypes.string.isRequired }).isRequired,
+};

@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Publication.module.css';
 
 const Publication = ({ item, counter }) => {
@@ -14,3 +14,11 @@ const Publication = ({ item, counter }) => {
 };
 
 export default Publication;
+
+Publication.propTypes = {
+  counter: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+};
